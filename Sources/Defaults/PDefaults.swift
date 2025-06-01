@@ -50,7 +50,7 @@ public enum PD {
 		
 		public init(
 			_ keyName: PDKey,
-			default defaultValue: Value,
+			_ defaultValue: Value,
 			suite: UserDefaults = .standard,
 			iCloud: Bool = false
 		) {
