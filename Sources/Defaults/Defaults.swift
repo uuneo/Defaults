@@ -1,6 +1,7 @@
 // MIT License © Sindre Sorhus
 import Foundation
 
+@available(iOS 14.0, *)
 public enum Defaults {
 	/**
 	Access stored values.
@@ -34,10 +35,13 @@ public enum Defaults {
 		}
 	}
 }
-
+@available(iOS 14.0, *)
 public typealias _Defaults = Defaults
+
+@available(iOS 14.0, *)
 public typealias _Default = Default
 
+@available(iOS 14.0, *)
 extension Defaults {
 	// We cannot use `Key` as the container for keys because of "Static stored properties not supported in generic types".
 	/**
@@ -50,13 +54,13 @@ extension Defaults {
 		public let suite: UserDefaults
 
 		@_alwaysEmitIntoClient
-		fileprivate init(name: String, suite: UserDefaults) {
+		fileprivate init(keyNamw: PDKey, suite: UserDefaults) {
 			runtimeWarn(
-				isValidKeyPath(name: name),
+				isValidKeyPath(name: keyNamw.name),
 				"The key name must be ASCII, not start with @, and cannot contain a dot (.)."
 			)
 
-			self.name = name
+			self.name = keyNamw.name
 			self.suite = suite
 		}
 
@@ -71,6 +75,7 @@ extension Defaults {
 	public typealias Keys = _AnyKey
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	/**
 	Strongly-typed key used to access values.
@@ -113,7 +118,7 @@ extension Defaults {
 		*/
 		@_alwaysEmitIntoClient
 		public init(
-			_ name: String,
+			_ keyName: PDKey,
 			default defaultValue: Value,
 			suite: UserDefaults = .standard,
 			iCloud: Bool = false
@@ -126,7 +131,7 @@ extension Defaults {
 
 			self.defaultValueGetter = { defaultValue }
 
-			super.init(name: name, suite: suite)
+			super.init(keyNamw: keyName, suite: suite)
 
 			if (defaultValue as? (any _DefaultsOptionalProtocol))?._defaults_isNil == true {
 				return
@@ -160,14 +165,14 @@ extension Defaults {
 		*/
 		@_alwaysEmitIntoClient
 		public init(
-			_ name: String,
+			_ keyName: PDKey,
 			suite: UserDefaults = .standard,
 			iCloud: Bool = false,
 			default defaultValueGetter: @escaping () -> Value
 		) {
 			self.defaultValueGetter = defaultValueGetter
 
-			super.init(name: name, suite: suite)
+			super.init(keyNamw: keyName, suite: suite)
 
 			if iCloud {
 				Defaults.iCloud.add(self)
@@ -176,6 +181,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.Key {
 	// We cannot declare this convenience initializer in class directly because of "@_transparent' attribute is not supported on declarations within classes".
 	/**
@@ -186,12 +192,12 @@ extension Defaults.Key {
 	- Parameter iCloud: Automatically synchronize the value with ``Defaults/iCloud``.
 	*/
 	public convenience init<T>(
-		_ name: String,
+		_ keyName: PDKey,
 		suite: UserDefaults = .standard,
 		iCloud: Bool = false
 	) where Value == T? {
 		self.init(
-			name,
+			keyName,
 			default: nil,
 			suite: suite,
 			iCloud: iCloud
@@ -216,7 +222,7 @@ extension Defaults.Key {
 		return defaultValue.isEqual(value)
 	}
 }
-
+@available(iOS 14.0, *)
 extension Defaults.Key where Value: Equatable {
 	/**
 	Indicates whether the value is the same as the default value.
@@ -224,6 +230,7 @@ extension Defaults.Key where Value: Equatable {
 	public var isDefaultValue: Bool { suite[self] == defaultValue }
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	/**
 	Remove all entries from the given `UserDefaults` suite.
@@ -235,6 +242,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults._AnyKey: Equatable {
 	public static func == (lhs: Defaults._AnyKey, rhs: Defaults._AnyKey) -> Bool {
 		lhs.name == rhs.name
@@ -242,13 +250,14 @@ extension Defaults._AnyKey: Equatable {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults._AnyKey: Hashable {
 	public func hash(into hasher: inout Hasher) {
 		hasher.combine(name)
 		hasher.combine(suite)
 	}
 }
-
+@available(iOS 14.0, *)
 extension Defaults {
 	/**
 	Observe updates to a stored value.

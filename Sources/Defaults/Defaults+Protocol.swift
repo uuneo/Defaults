@@ -1,5 +1,6 @@
 import Foundation
 
+@available(iOS 14.0, *)
 extension Defaults {
 	/**
 	Types that conform to this protocol can be used with `Defaults`.
@@ -34,6 +35,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public protocol Bridge {
 		associatedtype Value
@@ -44,6 +46,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	/**
 	Ambiguous bridge selector protocol that lets you select your preferred bridge when there are multiple possibilities.
@@ -66,6 +69,7 @@ extension Defaults {
 	public protocol PreferNSSecureCoding: NSObject, NSSecureCoding {}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public protocol CollectionSerializable: Collection, Serializable {
 		/**

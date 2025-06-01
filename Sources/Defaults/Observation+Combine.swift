@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 
+@available(iOS 14.0, *)
 extension Defaults {
 	/**
 	Custom `Subscription` for `UserDefaults` key observation.

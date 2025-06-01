@@ -1,5 +1,43 @@
 import Foundation
 
+
+extension UserDefaults {
+
+	
+	func _get<Value:Codable>(_ key: String) -> Value? {
+		
+		guard let data = data(forKey: key) else { return nil }
+		
+		do {
+			return try JSONDecoder().decode(Value.self, from: data)
+		} catch {
+#if DEBUG
+			print(error)
+#endif
+		}
+		return nil
+	}
+	
+	func _set<Value:Codable>(_ key: String, to value: Value) {
+		
+		do {
+			let encoded = try JSONEncoder().encode(value)
+			set(encoded, forKey: key)
+		} catch {
+#if DEBUG
+			print(error)
+#endif
+		}
+	}
+	
+	public subscript<Value: Codable>(key: PD.Key<Value>) -> Value {
+		get { _get(key.name) ?? key.defaultValue }
+		set { _set(key.name, to: newValue) }
+	}
+	
+}
+
+@available(iOS 14.0, *)
 extension UserDefaults {
 	func _get<Value: Defaults.Serializable>(_ key: String) -> Value? {
 		guard let anyObject = object(forKey: key) else {

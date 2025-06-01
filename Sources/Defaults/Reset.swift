@@ -1,5 +1,6 @@
 import Foundation
 
+@available(iOS 14.0, *)
 extension Defaults {
 	/**
 	Reset the given string keys back to their default values.
@@ -58,6 +59,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	// TODO: Add this to the main docs page.
 	/**
@@ -77,6 +79,7 @@ extension Defaults {
 	//=> false
 	```
 	*/
+
 	public static func reset<each Value>(
 		_ keys: repeat Key<each Value>,
 		suite: UserDefaults = .standard

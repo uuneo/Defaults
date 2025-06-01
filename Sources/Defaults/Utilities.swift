@@ -178,14 +178,13 @@ extension Equatable {
 	}
 }
 
-extension Defaults {
-	@usableFromInline
-	static func isValidKeyPath(name: String) -> Bool {
-		// The key must be ASCII, not start with @, and cannot contain a dot.
-		!name.starts(with: "@") && name.allSatisfy { $0 != "." && $0.isASCII }
-	}
+@usableFromInline
+func isValidKeyPath(name: String) -> Bool {
+	// The key must be ASCII, not start with @, and cannot contain a dot.
+	!name.starts(with: "@") && name.allSatisfy { $0 != "." && $0.isASCII }
 }
 
+@available(iOS 14.0, *)
 extension Defaults.Serializable {
 	/**
 	Cast a `Serializable` value to `Self`.

@@ -24,6 +24,7 @@ public protocol _DefaultsObservation: AnyObject {
 	func removeLifetimeTie()
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public typealias Observation = _DefaultsObservation
 
@@ -397,6 +398,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.ObservationOptions {
 	var toNSKeyValueObservingOptions: NSKeyValueObservingOptions {
 		var options: NSKeyValueObservingOptions = [.old, .new]
@@ -411,5 +413,7 @@ extension Defaults.ObservationOptions {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.KeyChange: Equatable where Value: Equatable {}
+@available(iOS 14.0, *)
 extension Defaults.KeyChange: Sendable where Value: Sendable {}

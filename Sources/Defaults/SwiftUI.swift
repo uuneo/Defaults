@@ -1,6 +1,7 @@
 import SwiftUI
 import Combine
 
+@available(iOS 14.0, *)
 extension Defaults {
 	@MainActor
 	final class Observable<Value: Serializable>: ObservableObject {
@@ -75,6 +76,7 @@ Access stored values from SwiftUI.
 
 This is similar to `@AppStorage` but it accepts a ``Defaults/Key`` and many more types.
 */
+@available(iOS 14.0, *)
 @MainActor
 @propertyWrapper
 public struct Default<Value: Defaults.Serializable>: @preconcurrency DynamicProperty {
@@ -161,7 +163,7 @@ public struct Default<Value: Defaults.Serializable>: @preconcurrency DynamicProp
 		key.reset()
 	}
 }
-
+@available(iOS 14.0, *)
 extension Default where Value: Equatable {
 	/**
 	Indicates whether the value is the same as the default value.
@@ -169,6 +171,7 @@ extension Default where Value: Equatable {
 	public var isDefaultValue: Bool { wrappedValue == defaultValue }
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	/**
 	A SwiftUI `Toggle` view that is connected to a ``Defaults/Key`` with a `Bool` value.
@@ -223,7 +226,7 @@ extension Defaults {
 		}
 	}
 }
-
+@available(iOS 14.0, *)
 extension Defaults.Toggle<Text> {
 	public init(
 		_ title: some StringProtocol,
@@ -233,7 +236,7 @@ extension Defaults.Toggle<Text> {
 		self.observable = .init(key)
 	}
 }
-
+@available(iOS 14.0, *)
 extension Defaults.Toggle<Label<Text, Image>> {
 	public init(
 		_ title: some StringProtocol,
@@ -244,7 +247,7 @@ extension Defaults.Toggle<Label<Text, Image>> {
 		self.observable = .init(key)
 	}
 }
-
+@available(iOS 14.0, *)
 extension Defaults.Toggle {
 	/**
 	Do something when the value changes to a different value.
@@ -255,6 +258,7 @@ extension Defaults.Toggle {
 	}
 }
 
+@available(iOS 14.0, *)
 @MainActor
 @propertyWrapper
 private struct ViewStorage<Value>: DynamicProperty {

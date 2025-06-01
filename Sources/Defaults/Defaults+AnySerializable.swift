@@ -1,6 +1,7 @@
 import CoreGraphics
 import Foundation
 
+@available(iOS 14.0, *)
 extension Defaults {
 	/**
 	Type-erased wrapper for `Defaults.Serializable` values.
@@ -55,6 +56,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.AnySerializable: Hashable {
 	public func hash(into hasher: inout Hasher) {
 		switch value {
@@ -102,6 +104,7 @@ extension Defaults.AnySerializable: Hashable {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.AnySerializable: Equatable {
 	public static func == (lhs: Self, rhs: Self) -> Bool {
 		switch (lhs.value, rhs.value) {
@@ -149,61 +152,74 @@ extension Defaults.AnySerializable: Equatable {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.AnySerializable: ExpressibleByStringLiteral {
 	public init(stringLiteral value: String) {
 		self.init(value: value)
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.AnySerializable: ExpressibleByNilLiteral {
 	public init(nilLiteral _: ()) {
 		self.init(value: nil as Any?)
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.AnySerializable: ExpressibleByBooleanLiteral {
 	public init(booleanLiteral value: Bool) {
 		self.init(value: value)
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.AnySerializable: ExpressibleByIntegerLiteral {
 	public init(integerLiteral value: Int) {
 		self.init(value: value)
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.AnySerializable: ExpressibleByFloatLiteral {
 	public init(floatLiteral value: Double) {
 		self.init(value: value)
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.AnySerializable: ExpressibleByArrayLiteral {
 	public init(arrayLiteral elements: Any...) {
 		self.init(value: elements)
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.AnySerializable: ExpressibleByDictionaryLiteral {
 	public init(dictionaryLiteral elements: (AnyHashable, Any)...) {
 		self.init(value: [AnyHashable: Any](uniqueKeysWithValues: elements))
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults.AnySerializable: _DefaultsOptionalProtocol {
 	// Since `nil` cannot be assigned to `Any`, we use `Void` instead of `nil`.
 	public var _defaults_isNil: Bool { value is Void }
 }
 
+@available(iOS 14.0, *)
 extension Sequence {
 	fileprivate func toSequence() -> [Defaults.AnySerializable] {
 		map { Defaults.AnySerializable(value: $0) }
 	}
 }
 
+@available(iOS 14.0, *)
 extension Dictionary {
 	fileprivate func toDictionary() -> [AnyHashable: Defaults.AnySerializable] {
 		reduce(into: [AnyHashable: Defaults.AnySerializable]()) { memo, tuple in memo[tuple.key] = Defaults.AnySerializable(value: tuple.value) }
 	}
 }
+
+
+

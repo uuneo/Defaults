@@ -5,6 +5,7 @@ import AppKit
 import UIKit
 #endif
 
+@available(iOS 14.0, *)
 extension Defaults.CodableBridge {
 	public func serialize(_ value: Value?) -> Serializable? {
 		guard let value else {
@@ -34,6 +35,7 @@ extension Defaults.CodableBridge {
 /**
 Any `Value` that conforms to `Codable` and `Defaults.Serializable` will use `CodableBridge` to do the serialization and deserialization.
 */
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct TopLevelCodableBridge<Value: Codable>: CodableBridge {}
 }
@@ -41,6 +43,7 @@ extension Defaults {
 /**
 `RawRepresentableCodableBridge` is needed because, for example, with `enum SomeEnum: String, Codable, Defaults.Serializable`, the compiler will be confused between `RawRepresentableBridge` and `TopLevelCodableBridge`.
 */
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct RawRepresentableCodableBridge<Value: RawRepresentable & Codable>: CodableBridge {}
 }
@@ -48,16 +51,19 @@ extension Defaults {
 /**
 This exists to avoid compiler ambiguity.
 */
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct CodableNSSecureCodingBridge<Value: Codable & NSSecureCoding & NSObject>: CodableBridge {}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct URLBridge: CodableBridge, Sendable {
 		public typealias Value = URL
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct RawRepresentableBridge<Value: RawRepresentable>: Bridge {
 		public typealias Value = Value
@@ -77,6 +83,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct NSSecureCodingBridge<Value: NSSecureCoding & NSObject>: Bridge {
 		public typealias Value = Value
@@ -105,6 +112,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct OptionalBridge<Wrapped: Serializable>: Bridge {
 		public typealias Value = Wrapped.Value
@@ -120,6 +128,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct ArrayBridge<Element: Serializable>: Bridge {
 		public typealias Value = [Element]
@@ -143,6 +152,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct DictionaryBridge<Key: LosslessStringConvertible & Hashable, Element: Serializable>: Bridge {
 		public typealias Value = [Key: Element.Value]
@@ -179,6 +189,7 @@ extension Defaults {
 /**
 We need both `SetBridge` and `SetAlgebraBridge` because `Set` conforms to `Sequence` but `SetAlgebra` does not. `Set` conforms to `Sequence`, so we can convert it into an array with `Array.init<S>(S)` and store it in the `UserDefaults`. But `SetAlgebra` does not, so it is hard to convert it into an array. Thats why we need the `Defaults.SetAlgebraSerializable` protocol to convert it into an array.
 */
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct SetBridge<Element: Serializable & Hashable>: Bridge {
 		public typealias Value = Set<Element>
@@ -217,6 +228,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct SetAlgebraBridge<Value: SetAlgebraSerializable>: Bridge where Value.Element: Serializable {
 		public typealias Value = Value
@@ -256,6 +268,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct CollectionBridge<Value: CollectionSerializable>: Bridge where Value.Element: Serializable {
 		public typealias Value = Value
@@ -295,6 +308,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct UUIDBridge: Bridge, Sendable {
 		public typealias Value = UUID
@@ -314,6 +328,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct RangeBridge<T: RangeSerializable>: Bridge {
 		public typealias Value = T
@@ -367,6 +382,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	/**
 	The bridge which is responsible for `SwiftUI.Color` serialization and deserialization.
@@ -427,6 +443,7 @@ extension Defaults {
 	}
 }
 
+@available(iOS 14.0, *)
 extension Defaults {
 	public struct AnyBridge: Bridge, Sendable {
 		public typealias Value = Defaults.AnySerializable
